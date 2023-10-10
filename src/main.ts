@@ -15,20 +15,21 @@ let counter = 0;
 // Create button
 const monsterButton = document.createElement("button");
 monsterButton.innerHTML = "👾";
+monsterButton.style.fontSize = "30pt";
 app.append(monsterButton);
 
 const counterReport = document.createElement("div");
-counterReport.innerHTML = `Monsters Slain: ${counter} Text Check`;
+counterReport.innerHTML = `Monsters Slain: ${counter}`;
 app.append(counterReport);
 
 // Increase counter when click button
 monsterButton.addEventListener("click", () => {
   counter++;
-  counterReport.innerHTML = `Monsters Slain: ${counter} Text Check`;
+  counterReport.innerHTML = `Monsters Slain: ${counter}`;
 });
 
 // Increase counter after interval
 setInterval(() => {
     counter++;
-    counterReport.innerHTML = `Monsters Slain: ${counter} Text Check`;
+    counterReport.innerHTML = `Monsters Slain: ${counter}`;
   }, 1000);
