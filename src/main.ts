@@ -11,8 +11,8 @@ header.innerHTML = gameName;
 app.append(header);
 
 let counter = 0;
-let lastTimestamp: number = 0;
-const incrementPerSecond: number = 1
+let lastTimestamp = 0;
+let incrementPerSecond = 0;
 
 // Create button
 const monsterButton = document.createElement("button");
@@ -36,8 +36,10 @@ function updateCounter(timestamp: number) {
     lastTimestamp = timestamp;
   }
 
-  // Calculate elapsed time and increment in seconds
+  // Calculate elapsed time in seconds
   const elapsedTime = (timestamp - lastTimestamp) / 1000;
+
+  // Calculate the increment based on elapsed time
   const increment = incrementPerSecond * elapsedTime;
 
   // Update the counter and report
@@ -53,3 +55,59 @@ function updateCounter(timestamp: number) {
 
 // Start the animation loop
 requestAnimationFrame(updateCounter);
+
+interface Item {
+  name: string;
+  cost: number;
+  rate: number;
+  description: string;
+}
+
+// Create upgrade items
+const upgrades: Item[] = [
+  { name: "🦅", cost: 10, rate: 1, description: "Support Pet" }
+];
+
+function createUpgradeButtons() {
+  for (const upgrade of upgrades) {
+    const upgradeButton = document.createElement("button");
+    upgradeButton.innerHTML = `${upgrade.name} (Cost: ${upgrade.cost})<br/>${upgrade.description}`;
+    app.append(upgradeButton);
+
+    // Function to handle the upgrade purchase
+    upgradeButton.addEventListener("click", () => {
+      if (counter >= upgrade.cost) {
+        counter -= upgrade.cost; // Deduct the cost from the counter
+        incrementPerSecond += upgrade.rate; // Increase the growth rate
+        counterReport.innerHTML = `Monsters Slain: ${counter.toFixed(2)}`;
+        updateButtonStates();
+      }
+    });
+  }
+}
+
+function updateButtonStates() {
+  for (const upgrade of upgrades) {
+    const buttons = document.querySelectorAll("button");
+
+    buttons.forEach((button) => {
+      if (button.textContent.includes(upgrade.name)) {
+        const upgradeButton = button as HTMLButtonElement;
+
+        if (counter < upgrade.cost) {
+          upgradeButton.disabled = true; // Disable the button
+        }
+        
+        else {
+          upgradeButton.disabled = false; // Enable the button
+        }
+      }
+    });
+  }
+}
+
+// Call the function to create upgrade buttons
+createUpgradeButtons();
+
+// Periodically check and update button states
+setInterval(updateButtonStates, 100);
