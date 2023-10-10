@@ -91,7 +91,7 @@ function updateButtonStates() {
     const buttons = document.querySelectorAll("button");
 
     buttons.forEach((button) => {
-      if (button.textContent.includes(upgrade.name)) {
+      if (button.textContent && button.textContent.includes(upgrade.name)) {
         const upgradeButton = button as HTMLButtonElement;
 
         if (counter < upgrade.cost) {
