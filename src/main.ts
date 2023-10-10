@@ -36,10 +36,8 @@ function updateCounter(timestamp: number) {
     lastTimestamp = timestamp;
   }
 
-  // Calculate elapsed time in seconds
+  // Calculate elapsed time and increment in seconds
   const elapsedTime = (timestamp - lastTimestamp) / 1000;
-
-  // Calculate the increment based on elapsed time
   const increment = incrementPerSecond * elapsedTime;
 
   // Update the counter and report
