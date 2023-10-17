@@ -68,7 +68,9 @@ interface Item {
 const upgrades: Item[] = [
   { name: "🦅", cost: 10, rate: 0.5, description: "Support Pet: kill slowly", purchased: 0 },
   { name: "🗡️", cost: 100, rate: 5, description: "Small dagger: cut like butter", purchased: 0 },
-  { name: "🪓", cost: 1000, rate: 50, description: "Big axe: big kill", purchased: 0 }
+  { name: "🪓", cost: 200, rate: 20, description: "Big axe: big kill", purchased: 0 },
+  { name: "🔫", cost: 1000, rate: 100, description: "Gun: speak for itself", purchased: 0 },
+  { name: "☢️", cost: 100000, rate: 10000, description: "Nuke: please don't", purchased: 0 }
 ];
 
 function createUpgradeButtons() {
