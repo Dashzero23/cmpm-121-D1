@@ -74,7 +74,7 @@ const upgrades: Item[] = [
 function createUpgradeButtons() {
   for (const upgrade of upgrades) {
     const upgradeButton = document.createElement("button");
-    upgradeButton.innerHTML = `${upgrade.name} (Cost: ${upgrade.cost})<br/>${upgrade.description}<br/>Purchased: ${upgrade.purchased}`;
+    upgradeButton.innerHTML = `${upgrade.name} (Cost: ${upgrade.cost.toFixed(2)})<br/>${upgrade.description}<br/>Purchased: ${upgrade.purchased}`;
     app.append(upgradeButton);
 
     // Function to handle the upgrade purchase
@@ -83,6 +83,7 @@ function createUpgradeButtons() {
         counter -= upgrade.cost; // Deduct the cost from the counter
         incrementPerSecond += upgrade.rate; // Increase the growth rate
         upgrade.purchased += 1;
+        upgrade.cost *= 1.15;
         counterReport.innerHTML = `Monsters Slain: ${counter.toFixed(2)}`;
         updateButtonStates();
       }
@@ -97,7 +98,7 @@ function updateButtonStates() {
     buttons.forEach((button) => {
       if (button.textContent && button.textContent.includes(upgrade.name)) {
         const upgradeButton = button as HTMLButtonElement;
-        upgradeButton.innerHTML = `${upgrade.name} (Cost: ${upgrade.cost})<br/>${upgrade.description}<br/>Purchased: ${upgrade.purchased}`;
+        upgradeButton.innerHTML = `${upgrade.name} (Cost: ${upgrade.cost.toFixed(2)})<br/>${upgrade.description}<br/>Purchased: ${upgrade.purchased}`;
 
         if (counter < upgrade.cost) {
           upgradeButton.disabled = true; // Disable the button
