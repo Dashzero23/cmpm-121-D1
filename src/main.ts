@@ -66,8 +66,8 @@ interface Item {
 
 // Create upgrade items
 const upgrades: Item[] = [
-  { name: "🦅", cost: 10, rate: 0.1, description: "Support Pet: kill slowly", purchased: 0 },
-  { name: "🗡️", cost: 100, rate: 2, description: "Small dagger: cut like butter", purchased: 0 },
+  { name: "🦅", cost: 10, rate: 0.5, description: "Support Pet: kill slowly", purchased: 0 },
+  { name: "🗡️", cost: 100, rate: 5, description: "Small dagger: cut like butter", purchased: 0 },
   { name: "🪓", cost: 1000, rate: 50, description: "Big axe: big kill", purchased: 0 }
 ];
 
