@@ -44,7 +44,7 @@ function updateCounter(timestamp: number) {
 
   // Update the counter and report
   counter += increment;
-  counterReport.innerHTML = `Monsters Slain: ${counter.toFixed(2)}`;
+  counterReport.innerHTML = `Monsters Slain: ${counter.toFixed(2)}<br/>Kill rate: ${incrementPerSecond.toFixed(1)}`;
 
   // Update the last timestamp
   lastTimestamp = timestamp;
@@ -61,17 +61,20 @@ interface Item {
   cost: number;
   rate: number;
   description: string;
+  purchased: number;
 }
 
 // Create upgrade items
 const upgrades: Item[] = [
-  { name: "🦅", cost: 10, rate: 1, description: "Support Pet" }
+  { name: "🦅", cost: 10, rate: 0.1, description: "Support Pet", purchased: 0 },
+  { name: "🗡️", cost: 100, rate: 2, description: "A small dagger", purchased: 0 },
+  { name: "🪓", cost: 1000, rate: 50, description: "An axe", purchased: 0 }
 ];
 
 function createUpgradeButtons() {
   for (const upgrade of upgrades) {
     const upgradeButton = document.createElement("button");
-    upgradeButton.innerHTML = `${upgrade.name} (Cost: ${upgrade.cost})<br/>${upgrade.description}`;
+    upgradeButton.innerHTML = `${upgrade.name} (Cost: ${upgrade.cost})<br/>${upgrade.description}<br/>Purchased: ${upgrade.purchased}`;
     app.append(upgradeButton);
 
     // Function to handle the upgrade purchase
@@ -79,6 +82,7 @@ function createUpgradeButtons() {
       if (counter >= upgrade.cost) {
         counter -= upgrade.cost; // Deduct the cost from the counter
         incrementPerSecond += upgrade.rate; // Increase the growth rate
+        upgrade.purchased += 1;
         counterReport.innerHTML = `Monsters Slain: ${counter.toFixed(2)}`;
         updateButtonStates();
       }
@@ -89,10 +93,11 @@ function createUpgradeButtons() {
 function updateButtonStates() {
   for (const upgrade of upgrades) {
     const buttons = document.querySelectorAll("button");
-
+    
     buttons.forEach((button) => {
       if (button.textContent && button.textContent.includes(upgrade.name)) {
         const upgradeButton = button as HTMLButtonElement;
+        upgradeButton.innerHTML = `${upgrade.name} (Cost: ${upgrade.cost})<br/>${upgrade.description}<br/>Purchased: ${upgrade.purchased}`;
 
         if (counter < upgrade.cost) {
           upgradeButton.disabled = true; // Disable the button
